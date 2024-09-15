@@ -1,0 +1,16 @@
+server:
+  servlet:
+    context-path: /cadastro-beneficiario/api
+
+spring.jpa.database: POSTGRESQL
+spring.datasource.driver-class-name: org.postgresql.Driver
+spring.datasource.url: jdbc:postgresql://localhost:5432/beneficiarios
+spring.datasource.username: postgres
+spring.datasource.password: esmy1458
+spring.jpa.show-sql: true
+spring.jpa.hibernate.ddl-auto: update
+spring.jpa.yml.hibernate.jdbc.lob.non_contextual_creation: true
+spring:
+  sql:
+    init:
+      platform: postgres
