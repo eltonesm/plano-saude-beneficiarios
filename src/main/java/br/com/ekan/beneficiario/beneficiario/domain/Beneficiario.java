@@ -1,5 +1,6 @@
 package br.com.ekan.beneficiario.beneficiario.domain;
 
+import br.com.ekan.beneficiario.beneficiario.application.api.BeneficiarioRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -14,14 +15,13 @@ import java.util.UUID;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class beneficiario {
+public class Beneficiario {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(columnDefinition = "UUID", name = "idBeneficiario", updatable = false, unique = true, nullable = false)
     private UUID idBeneficiario;
     @NotBlank
     private String nomeCompleto;
-    ;
     @NotBlank
     private String telefone;
     @NotNull
@@ -30,12 +30,10 @@ public class beneficiario {
     private LocalDateTime dataInclusao;
     private LocalDateTime dataAtualizacao;
 
-    public beneficiario(String nomeCompleto, String telefone, LocalDate dataNascimento,
-                        LocalDateTime dataInclusao, LocalDateTime dataAtualizacao) {
-        this.nomeCompleto = nomeCompleto;
-        this.telefone = telefone;
-        this.dataNascimento = dataNascimento;
-        this.dataInclusao = dataInclusao;
-        this.dataAtualizacao = dataAtualizacao;
+    public Beneficiario(BeneficiarioRequest beneficiarioRequest) {
+        this.nomeCompleto = beneficiarioRequest.getNomeCompleto();
+        this.telefone = beneficiarioRequest.getTelefone();
+        this.dataNascimento = beneficiarioRequest.getDataNascimento();
+        this.dataInclusao = LocalDateTime.now();
     }
 }
