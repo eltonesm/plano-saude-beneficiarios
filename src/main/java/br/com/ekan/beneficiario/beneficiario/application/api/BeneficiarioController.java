@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @Log4j2
 @RequiredArgsConstructor
@@ -17,5 +19,13 @@ public class BeneficiarioController implements BeneficiarioAPI {
         BeneficiarioResponse beneficiarioCriado = beneficiarioService.criaBeneficiario(beneficiarioRequest);
         log.info("[Finish]BeneficiarioController - postBeneficiario");
         return beneficiarioCriado;
+    }
+
+    @Override
+    public List<BeneficiarioListResponse> listaTodosBeneficiarios() {
+        log.info("[Start]BeneficiarioController - listaTodosBeneficiarios");
+        List<BeneficiarioListResponse> beneficiarios = beneficiarioService.buscaTodosBeneficiarios();
+        log.info("[Finish]BeneficiarioController - listaTodosBeneficiarios");
+        return beneficiarios;
     }
 }
