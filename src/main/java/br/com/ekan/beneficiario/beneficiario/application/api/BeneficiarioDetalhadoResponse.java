@@ -1,5 +1,6 @@
 package br.com.ekan.beneficiario.beneficiario.application.api;
 
+import br.com.ekan.beneficiario.beneficiario.domain.Beneficiario;
 import lombok.Value;
 
 import java.time.LocalDate;
@@ -11,4 +12,11 @@ public class BeneficiarioDetalhadoResponse {
     private String nomeCompleto;
     private String telefone;
     private LocalDate dataNascimento;
+
+    public BeneficiarioDetalhadoResponse(Beneficiario beneficiario) {
+        this.idBeneficiario = beneficiario.getIdBeneficiario();
+        this.nomeCompleto = beneficiario.getNomeCompleto();
+        this.telefone = beneficiario.getTelefone();
+        this.dataNascimento = beneficiario.getDataNascimento();
+    }
 }

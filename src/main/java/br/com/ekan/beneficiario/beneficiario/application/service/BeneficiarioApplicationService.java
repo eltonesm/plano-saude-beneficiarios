@@ -1,5 +1,6 @@
 package br.com.ekan.beneficiario.beneficiario.application.service;
 
+import br.com.ekan.beneficiario.beneficiario.application.api.BeneficiarioDetalhadoResponse;
 import br.com.ekan.beneficiario.beneficiario.application.api.BeneficiarioListResponse;
 import br.com.ekan.beneficiario.beneficiario.application.api.BeneficiarioRequest;
 import br.com.ekan.beneficiario.beneficiario.application.api.BeneficiarioResponse;
@@ -10,6 +11,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @Log4j2
@@ -33,5 +35,13 @@ public class BeneficiarioApplicationService implements BeneficiarioService {
         List<Beneficiario> beneficiarios = beneficiarioRepository.buscaTodosBeneficiarios();
         log.info("[Finish]BeneficiarioApplicationService - buscaTodosBeneficiarios");
         return BeneficiarioListResponse.converte(beneficiarios);
+    }
+
+    @Override
+    public BeneficiarioDetalhadoResponse buscaBeneficiarioPorId(UUID idBeneficiario) {
+        log.info("[Start]BeneficiarioApplicationService - buscaBeneficiarioPorId");
+        Beneficiario beneficiario = beneficiarioRepository.buscaBeneficiarioPorId(idBeneficiario);
+        log.info("[Finish]BeneficiarioApplicationService - buscaBeneficiarioPorId");
+        return new BeneficiarioDetalhadoResponse(beneficiario);
     }
 }
