@@ -34,7 +34,14 @@ public class BeneficiarioController implements BeneficiarioAPI {
     public BeneficiarioDetalhadoResponse buscaBeneficiarioPorId(UUID idBeneficiario) {
         log.info("[Start]BeneficiarioController - buscaBeneficiarioPorId");
         BeneficiarioDetalhadoResponse beneficiarioDetalhado = beneficiarioService.buscaBeneficiarioPorId(idBeneficiario);
-        log.info("[finish]BeneficiarioController - buscaBeneficiarioPorId");
+        log.info("[Finish]BeneficiarioController - buscaBeneficiarioPorId");
         return beneficiarioDetalhado;
+    }
+
+    @Override
+    public void editaBeneficiario(BeneficiarioAlteracaoRequest beneficiarioAlteracaoRequest, UUID idBeneficiario) {
+        log.info("[Start]BeneficiarioController - editaBeneficiario");
+        beneficiarioService.editaBeneficiario(beneficiarioAlteracaoRequest, idBeneficiario);
+        log.info("[Finish]BeneficiarioController - editaBeneficiario");
     }
 }
