@@ -23,7 +23,7 @@ public class Documento {
     @NotBlank
     private String descricao;
     @NotNull
-    private UUID idBeneficiario;
+    private UUID idDocumentoBeneficiario;
 
     private LocalDateTime dataInclusao;
     private LocalDateTime dataAtualizacao;
@@ -31,7 +31,7 @@ public class Documento {
     public Documento(UUID idBeneficiario, DocumentoRequest documentoRequest) {
         this.tipoDocumento = documentoRequest.getTipoDocumento();
         this.descricao = documentoRequest.getDescricao();
-        this.idBeneficiario = idBeneficiario;
+        this.idDocumentoBeneficiario = idBeneficiario;
         this.dataInclusao = LocalDateTime.now();
     }
 }

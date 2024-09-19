@@ -1,6 +1,7 @@
 package br.com.ekan.beneficiario.documento.application.service;
 
 import br.com.ekan.beneficiario.beneficiario.application.service.BeneficiarioService;
+import br.com.ekan.beneficiario.documento.application.api.DocumentoListResponse;
 import br.com.ekan.beneficiario.documento.application.api.DocumentoRequest;
 import br.com.ekan.beneficiario.documento.application.api.DocumentoResponse;
 import br.com.ekan.beneficiario.documento.application.repository.DocumentoRepository;
@@ -9,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -26,5 +28,14 @@ public class DocumentoApplicationService implements DocumentoService {
         Documento documento = documentoRepository.salvaDocumento(new Documento(idBeneficiario, documentoRequest));
         log.info("[Finish]DocumentoApplicationService - criaDocumento");
         return new DocumentoResponse(documento.getIdDocumento());
+    }
+
+    @Override
+    public List<DocumentoListResponse> buscaTodosDocumentosDoBeneficiario(UUID idBeneficiario) {
+        log.info("[Start]DocumentoApplicationService - buscaTodosDocumentosDoBeneficiario");
+        beneficiarioService.buscaBeneficiarioPorId(idBeneficiario);
+        List<Documento> documentosDoBeneficiario = documentoRepository.buscaTodosDocumentosDoBeneficiario(idBeneficiario);
+        log.info("[Finish]DocumentoApplicationService - buscaTodosDocumentosDoBeneficiario");
+        return DocumentoListResponse.converte(documentosDoBeneficiario);
     }
 }
