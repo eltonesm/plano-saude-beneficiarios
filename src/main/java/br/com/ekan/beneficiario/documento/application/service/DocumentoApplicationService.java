@@ -1,9 +1,7 @@
 package br.com.ekan.beneficiario.documento.application.service;
 
 import br.com.ekan.beneficiario.beneficiario.application.service.BeneficiarioService;
-import br.com.ekan.beneficiario.documento.application.api.DocumentoListResponse;
-import br.com.ekan.beneficiario.documento.application.api.DocumentoRequest;
-import br.com.ekan.beneficiario.documento.application.api.DocumentoResponse;
+import br.com.ekan.beneficiario.documento.application.api.*;
 import br.com.ekan.beneficiario.documento.application.repository.DocumentoRepository;
 import br.com.ekan.beneficiario.documento.domain.Documento;
 import lombok.RequiredArgsConstructor;
@@ -37,5 +35,24 @@ public class DocumentoApplicationService implements DocumentoService {
         List<Documento> documentosDoBeneficiario = documentoRepository.buscaTodosDocumentosDoBeneficiario(idBeneficiario);
         log.info("[Finish]DocumentoApplicationService - buscaTodosDocumentosDoBeneficiario");
         return DocumentoListResponse.converte(documentosDoBeneficiario);
+    }
+
+    @Override
+    public DocumentoDetalheResponse buscaDocumentoBeneficiarioPorId(UUID idBeneficiario, UUID idDocumento) {
+        log.info("[Start]DocumentoApplicationService - buscaDocumentoBeneficiarioPorId");
+        beneficiarioService.buscaBeneficiarioPorId(idBeneficiario);
+        Documento documento = documentoRepository.buscaDocumentoBeneficiarioPorId(idDocumento);
+        log.info("[Finish]DocumentoApplicationService - buscaDocumentoBeneficiarioPorId");
+        return new DocumentoDetalheResponse(documento);
+    }
+
+    @Override
+    public void editaDocumento(UUID idBeneficiario, UUID idDocumento, DocumentoAlteracaoRequest documentoAlteracaoRequest) {
+        log.info("[Start]DocumentoApplicationService - editaDocumento");
+        beneficiarioService.buscaBeneficiarioPorId(idBeneficiario);
+        Documento documento = documentoRepository.buscaDocumentoBeneficiarioPorId(idDocumento);
+        documento.altera(documentoAlteracaoRequest);
+        documentoRepository.salvaDocumento(documento);
+        log.info("[Finish]DocumentoApplicationService - editaDocumento");
     }
 }

@@ -2,8 +2,10 @@ package br.com.ekan.beneficiario.documento.infra;
 
 import br.com.ekan.beneficiario.documento.application.repository.DocumentoRepository;
 import br.com.ekan.beneficiario.documento.domain.Documento;
+import br.com.ekan.beneficiario.handler.APIException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -29,5 +31,14 @@ public class DocumentoInfraRepository implements DocumentoRepository {
         var documentos = documentoSpringDataJPARepository.findByIdDocumentoBeneficiario(idBeneficiario);
         log.info("[Finish]DocumentoInfraRepository - buscaTodosDocumentosDoBeneficiario");
         return documentos;
+    }
+
+    @Override
+    public Documento buscaDocumentoBeneficiarioPorId(UUID idDocumento) {
+        log.info("[Start]DocumentoInfraRepository - buscaDocumentoBeneficiarioPorId");
+        var documento = documentoSpringDataJPARepository.findById(idDocumento)
+                .orElseThrow(() -> APIException.build(HttpStatus.NOT_FOUND, "Documento não encontrado para o ID!"));
+        log.info("[Finish]DocumentoInfraRepository - buscaDocumentoBeneficiarioPorId");
+        return documento;
     }
 }

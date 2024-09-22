@@ -24,10 +24,25 @@ public class DocumentoController implements DocumentoAPI {
     }
 
     @Override
+    public DocumentoDetalheResponse documentoBeneficiarioPorId(UUID idDocumento, UUID idBeneficiario) {
+        log.info("[Start]DocumentoController - documentoBeneficiarioPorId");
+        DocumentoDetalheResponse documento = documentoService.buscaDocumentoBeneficiarioPorId(idBeneficiario, idDocumento);
+        log.info("[Finish]DocumentoController - documentoBeneficiarioPorId");
+        return documento;
+    }
+
+    @Override
     public List<DocumentoListResponse> todosDocumentosDoBeneficiario(UUID idBeneficiario) {
         log.info("[Start]DocumentoController - todosDocumentosDoBeneficiario");
         List<DocumentoListResponse> documentosBeneficiario = documentoService.buscaTodosDocumentosDoBeneficiario(idBeneficiario);
         log.info("[Finish]DocumentoController - todosDocumentosDoBeneficiario");
         return documentosBeneficiario;
+    }
+
+    @Override
+    public void editaDocumento(UUID idBeneficiario, UUID idDocumento, DocumentoAlteracaoRequest documentoAlteracaoRequest) {
+        log.info("[Start]DocumentoController - editaDocumento");
+        documentoService.editaDocumento(idBeneficiario, idDocumento, documentoAlteracaoRequest);
+        log.info("[Finish]DocumentoController - editaDocumento");
     }
 }

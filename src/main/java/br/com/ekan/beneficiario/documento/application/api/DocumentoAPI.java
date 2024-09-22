@@ -8,14 +8,23 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(value = "/v1/documento")
+@RequestMapping(value = "/v1/{idBeneficiario}/documento")
 public interface DocumentoAPI {
-    @PostMapping(value = "{idBeneficiario}")
+    @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
     DocumentoResponse postDocumento(@PathVariable UUID idBeneficiario,
                                     @Valid @RequestBody DocumentoRequest documentoRequest);
 
-    @GetMapping(value = "/{idBeneficiario}")
+    @GetMapping(value = "/{idDocumento}")
+    @ResponseStatus(code = HttpStatus.OK)
+    DocumentoDetalheResponse documentoBeneficiarioPorId(@PathVariable UUID idDocumento, @PathVariable UUID idBeneficiario);
+
+    @GetMapping(value = "/lista-documentos")
     @ResponseStatus(code = HttpStatus.OK)
     List<DocumentoListResponse> todosDocumentosDoBeneficiario(@PathVariable UUID idBeneficiario);
+
+    @PatchMapping(value = "/edita-documento/{idDocumento}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    void editaDocumento(@PathVariable UUID idBeneficiario, @PathVariable UUID idDocumento,
+                        @Valid @RequestBody DocumentoAlteracaoRequest documentoAlteracaoRequest);
 }

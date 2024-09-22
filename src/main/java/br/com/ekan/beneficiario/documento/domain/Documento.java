@@ -1,5 +1,6 @@
 package br.com.ekan.beneficiario.documento.domain;
 
+import br.com.ekan.beneficiario.documento.application.api.DocumentoAlteracaoRequest;
 import br.com.ekan.beneficiario.documento.application.api.DocumentoRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -33,5 +34,11 @@ public class Documento {
         this.descricao = documentoRequest.getDescricao();
         this.idDocumentoBeneficiario = idBeneficiario;
         this.dataInclusao = LocalDateTime.now();
+    }
+
+    public void altera(DocumentoAlteracaoRequest documentoAlteracaoRequest) {
+        this.tipoDocumento = documentoAlteracaoRequest.getTipoDocumento();
+        this.descricao = documentoAlteracaoRequest.getDescricao();
+        this.dataAtualizacao = LocalDateTime.now();
     }
 }
