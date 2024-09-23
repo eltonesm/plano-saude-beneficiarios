@@ -45,4 +45,11 @@ public class DocumentoController implements DocumentoAPI {
         documentoService.editaDocumento(idBeneficiario, idDocumento, documentoAlteracaoRequest);
         log.info("[Finish]DocumentoController - editaDocumento");
     }
+
+    @Override
+    public void deletaDocumento(UUID idDocumento, UUID idBeneficiario) {
+        log.info("[Start]DocumentoController - deletaDocumento");
+        documentoService.deletaDocumento(idDocumento, idBeneficiario);
+        log.info("[Finish]DocumentoController - deletaDocumento");
+    }
 }

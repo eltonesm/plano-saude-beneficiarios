@@ -55,4 +55,13 @@ public class DocumentoApplicationService implements DocumentoService {
         documentoRepository.salvaDocumento(documento);
         log.info("[Finish]DocumentoApplicationService - editaDocumento");
     }
+
+    @Override
+    public void deletaDocumento(UUID idDocumento, UUID idBeneficiario) {
+        log.info("[Start]DocumentoApplicationService - deletaDocumento");
+        beneficiarioService.buscaBeneficiarioPorId(idBeneficiario);
+        Documento documento = documentoRepository.buscaDocumentoBeneficiarioPorId(idDocumento);
+        documentoRepository.deletaDocumento(documento);
+        log.info("[Finish]DocumentoApplicationService - deletaDocumento");
+    }
 }

@@ -27,4 +27,8 @@ public interface DocumentoAPI {
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     void editaDocumento(@PathVariable UUID idBeneficiario, @PathVariable UUID idDocumento,
                         @Valid @RequestBody DocumentoAlteracaoRequest documentoAlteracaoRequest);
+
+    @DeleteMapping(value = "/deleta-documento/{idDocumento}")
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
+    void deletaDocumento(@PathVariable UUID idDocumento, @PathVariable UUID idBeneficiario);
 }
